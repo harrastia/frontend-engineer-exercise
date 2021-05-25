@@ -60,3 +60,7 @@ Extra points but not necessary:
 
 * Tests
 * Item details view and routing
+
+An example app for the minimum functionality has been written in a little
+framework called mithril.js and found at branch `example-mitrhil`
+ https://github.com/harrastia/frontend-engineer-exercise/compare/example-mitrhil
