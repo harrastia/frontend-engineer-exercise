@@ -20,21 +20,24 @@ def serialize_tinydb_el(el):
     ret['id'] = str(el.doc_id)
     return ret
 
-@app.route('/', methods=['GET'])
-def index():
-    """
-    Serve the index.html at the root
-    """
-    return send_file('static/index.html')
 
-@app.route('/merchant-name/', methods=['GET'])
+# serve the index page
+# in order to enable HTML5 routing, 404s return the index page
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return send_file('static/index.html'), 200
+
+
+@app.route('/api/merchant-name/', methods=['GET'])
 def merchant_name():
     """
     Get the merchant name
     """
     return os.environ.get('MERCHANT_NAME')
 
-@app.route('/inventory/', methods=['GET', 'POST'])
+
+@app.route('/api/inventory/', methods=['GET', 'POST'])
 def inventory_list():
     """
     Get the list of products and their details or create new product
@@ -52,7 +55,8 @@ def inventory_list():
     else:
         return (json.dumps(list(map(serialize_tinydb_el, items_table.all()))), 200)
 
-@app.route('/inventory/<int:item_id>/', methods=['GET', 'PATCH', 'DELETE'])
+
+@app.route('/api/inventory/<int:item_id>/', methods=['GET', 'PATCH', 'DELETE'])
 def inventory_item(item_id):
     """
     Place an order to the provider
