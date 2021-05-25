@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 APP_PATH = os.path.abspath(os.path.dirname(__file__))
 DB_PATH = os.environ.get('DB_PATH', os.path.join(APP_PATH, 'db.json'))
-CUSTOMER_ID = os.environ['CUSTOMER_ID']
 
 db = TinyDB(DB_PATH)
 items_table = db.table('items')
