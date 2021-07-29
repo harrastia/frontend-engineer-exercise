@@ -2,7 +2,7 @@
     const m = window.m;
 
     const AppStore = {
-        merchantName: "",
+        merchantName: '',
         inventory: [],
 
         fetchMerchantName: () => {
@@ -91,7 +91,7 @@
     }
 
     const AddItemService = {
-        name: "",
+        name: '',
         setName: (name) => {
             AddItemService.name = name
         },
@@ -99,7 +99,7 @@
             return Boolean(AddItemService.name)
         },
         clear: () => {
-            AddItemService.name = ""
+            AddItemService.name = ''
         },
         add: () => {
             const promise = AppStore.addItem(AddItemService.name)
@@ -112,8 +112,8 @@
 
     const AddItemForm = {
         view: (vnode) => {
-            return m("form", {
-                "onsubmit": (ev) => {
+            return m('form', {
+                'onsubmit': (ev) => {
                     ev.preventDefault()
                     AddItemService.add();
                 }
@@ -122,18 +122,18 @@
                     'for': 'item_name_field'
                 }, 'Add new item'),
                 ' ',
-                m("input", {
-                    "type": "text",
-                    "name": "item_name",
-                    "id": "item_name_field",
-                    "value": AddItemService.name,
-                    "oninput": (e) => { AddItemService.setName(e.target.value) }
+                m('input', {
+                    'type': 'text',
+                    'name': 'item_name',
+                    'id': 'item_name_field',
+                    'value': AddItemService.name,
+                    'oninput': (e) => { AddItemService.setName(e.target.value) }
                 }),
                 ' ',
-                m("button", {
-                    "type": "submit",
-                    "disabled": !AddItemService.canSubmit()
-                }, "Add")
+                m('button', {
+                    'type': 'submit',
+                    'disabled': !AddItemService.canSubmit()
+                }, 'Add')
             ])
         }
     }
@@ -159,14 +159,14 @@
 
     const InventoryApp = {
         view: function() {
-            return m("main", [
-                m("h1", { class: "title" }, AppStore.merchantName ? `Inventory for ${AppStore.merchantName}` : 'Inventory'),
-                m("table", { id: 'inventory-table' }, [
-                    m("tr", [
+            return m('main', [
+                m('h1', { class: 'title' }, AppStore.merchantName ? `Inventory for ${AppStore.merchantName}` : 'Inventory'),
+                m('table', { id: 'inventory-table' }, [
+                    m('tr', [
                         m('th', 'Name'), m('th.quantity', 'Quantity'), m('th', '')
                     ]),
                     AppStore.inventory.map(function(it) {
-                        return m("tr", { key: it.id }, [
+                        return m('tr', { key: it.id }, [
                             m('td', it.name),
                             m('td.quantity', [
                                 it.quantity || 0,
@@ -183,14 +183,14 @@
                         ])
                     }),
                 ]),
-                m("div.addform", m(AddItemForm))
+                m('div.addform', m(AddItemForm))
             ])
         }
     };
 
     m.route.prefix = ''
-    m.route(document.body, "/", {
-        "/": {
+    m.route(document.body, '/', {
+        '/': {
             render: () => {
                 return m(InventoryApp)
             },
